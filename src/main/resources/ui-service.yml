@@ -1,0 +1,24 @@
+# Spring properties
+spring:
+  application:
+    name: ui-service  # Identify this application
+  freemarker:
+    enabled: false     
+  thymeleaf:
+    cache: false       
+    prefix: classpath:/web-server/templates/
+
+error:
+  path=/error
+
+# Discovery Server Access
+eureka:
+  instance:
+     leaseRenewalIntervalInSeconds: 5
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8093/eureka/
+
+# HTTP Server
+server:
+  port: 8095   # HTTP (Tomcat) port

@@ -1,0 +1,24 @@
+# Discovery Server Dashboard uses FreeMarker.  Don't want Thymeleaf templates
+spring:
+  application:
+     name: catalogue-service
+  thymeleaf:
+    enabled: false     # Disable Thymeleaf 
+
+server:
+  port: 8093   # HTTP (Tomcat) port
+
+# Configure this Discovery Server
+eureka:
+  instance:
+    hostname: localhost
+  client:  # Not a client, don't register with yourself
+    registerWithEureka: false
+    fetchRegistry: false 
+  serviceUrl:
+     defaultZone: http://${eureka.instance.hostname}:${server.port}/eureka/
+     
+
+
+
+

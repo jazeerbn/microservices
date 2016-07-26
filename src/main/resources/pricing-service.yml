@@ -1,0 +1,27 @@
+# Spring properties
+spring:
+  application:
+     name: pricing-service  # Service registers under this name       
+  thymeleaf:
+    enabled: false 
+
+# Configure this Discovery Server
+#eureka:
+#  instance:
+#    hostname: localhost
+#  client:  # Not a client, don't register with yourself
+#    registerWithEureka: false
+#    fetchRegistry: false  
+     
+eureka:
+  instance:
+     leaseRenewalIntervalInSeconds: 5
+  client:
+    serviceUrl:
+      defaultZone: http://localhost:8093/eureka/  
+
+# HTTP Server
+server:
+  port: 8094   # HTTP (Tomcat) port
+
+
