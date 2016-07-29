@@ -4,7 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.netflix.eureka.server.EnableEurekaServer;
-
+import static com.globomart.Constants.*;
 /**
  * 
  * @author jazeer
@@ -27,7 +27,7 @@ public class PricingService {
 	 * @param args 
 	 */
 	public static void main(String[] args) {
-		System.setProperty("spring.config.name", "pricing-service");
+		System.setProperty(SPRING_CONF_NAME, PRICING_SERVICE);
 		SpringApplication.run(PricingService.class, args);
 	}
 

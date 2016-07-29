@@ -10,6 +10,8 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.client.RestTemplate;
 
+import static com.globomart.Constants.*;
+
 /**
  * Works as a microservice client, fetching data from the other Services. 
  * Uses the Discovery Server (Eureka) to find the microservice.
@@ -24,23 +26,13 @@ import org.springframework.web.client.RestTemplate;
 @ComponentScan(useDefaultFilters = false)// Disable component scanner
 public class UIService {
 
-		/**
-		 * URL uses the logical name of account-service - upper or lower case,
-		 * doesn't matter.
-		 */
-		public static final String CATALOGUE_SERVICE_URL = "http://catalogue-service";
-		public static final String PRICING_SERVICE_URL = "http://pricing-service";
-
 		public static void main(String[] args) {
-			// Tell server to look for ui-service.yml
-			System.setProperty("spring.config.name", "ui-service");
+			System.setProperty(SPRING_CONF_NAME, UI_SERVICE);
 			SpringApplication.run(UIService.class, args);
 		}
 
 		/**
-		 * A customized RestTemplate that has the ribbon load balancer build in.
-		 * prior to the "Brixton" 
-		 * 
+		 * A customized RestTemplate that has a built in ribbon load.
 		 * @return
 		 */
 		@LoadBalanced
@@ -49,21 +41,11 @@ public class UIService {
 			return new RestTemplate();
 		}
 
-		/**
-		 * The UICatalogueService encapsulates the interaction with the micro-service.
-		 * 
-		 * @return A new service instance.
-		 */
 		@Bean
 		public UICatalogueService catalogService() {
 			return new UICatalogueService(CATALOGUE_SERVICE_URL);
 		}
 
-		/**
-		 * Create the controller, passing it the {@link UICatalogueService} to use.
-		 * 
-		 * @return
-		 */
 		@Bean
 		public UICatalogController catalogController() {
 			return new UICatalogController(catalogService());

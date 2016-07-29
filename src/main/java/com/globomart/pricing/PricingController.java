@@ -1,6 +1,7 @@
 package com.globomart.pricing;
 
 
+import java.util.List;
 import java.util.logging.Logger;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.globomart.pricing.entity.Pricing;
+import static com.globomart.Constants.*;
 
 /**
  * A RESTFul controller for accessing account information.
@@ -28,8 +30,8 @@ public class PricingController {
 		this.pricingRepo = pricingRepo;
 	}
 	
-	@RequestMapping("/product/price/{productId}")
-	public Pricing findPriceByProductId(@PathVariable("productId") String productId){
+	@RequestMapping(GENERIC_PRODUCT_URL+"price/{productid}")
+	public Pricing findPriceByProductId(@PathVariable(PRODUCTID) String productId){
 		LOG.info("pricing-service by id invoked: " + productId);
 		if(productId == null || productId.trim().length()<= 0){
 			LOG.warning("Invalid ProductId");
@@ -44,10 +46,16 @@ public class PricingController {
 		}
 	}
 	
-	@RequestMapping(value = "/product/price/add", params = { "productid","price" })
-	public String save(@RequestParam("productid") Long productid, @RequestParam("price") Long price){
+	@RequestMapping(value =GENERIC_PRODUCT_URL+"price/add", params = { PRODUCTID, PRICE })
+	public String save(@RequestParam(PRODUCTID) Long productid, @RequestParam(PRICE) Long price){
 		Pricing pricing = new Pricing(productid, price);
 		pricingRepo.save(pricing);
-		return "DONE";
+		return DONE;
+	}
+	
+	@RequestMapping(GENERIC_PRODUCT_URL+"price/")
+	public List<Pricing> findAll(){
+		LOG.info("find all pricing-service invoked: ");
+		return  pricingRepo.findAll();
 	}
 }

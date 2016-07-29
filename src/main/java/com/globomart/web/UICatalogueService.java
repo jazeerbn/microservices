@@ -11,6 +11,7 @@ import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
 
 /**
+ * //TODO : Implement the complete class.
  * 
  * @author jazeer
  *
@@ -27,8 +28,7 @@ public class UICatalogueService {
 	protected String serviceUrl;
 
 	public UICatalogueService(String serviceUrl) {
-		this.serviceUrl = serviceUrl.startsWith("http") ? serviceUrl
-				: "http://" + serviceUrl;
+		this.serviceUrl = serviceUrl;
 	}
 	
 	public Catalogue findByID(String productId) {
@@ -37,7 +37,7 @@ public class UICatalogueService {
 		return restTemplate.getForObject(serviceUrl + "/product/{id}", Catalogue.class, productId);
 	}
 	
-	public List<Catalogue> byNameContains(String name) {
+	public List<Catalogue> getByNameContains(String name) {
 		LOG.info("byNameContains() invoked:  for " + name);
 		Catalogue[] products = null;
 

@@ -3,7 +3,7 @@ package com.globomart.productcatalogue;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.netflix.eureka.server.EnableEurekaServer;
-
+import static com.globomart.Constants.*;
 /**
  * Loading the application using Spring boot and Eureka server (service discovery).
  * <br>Since this service acts as server, made this as Eureka server.
@@ -25,7 +25,8 @@ public class ProductCatalogueService {
 	 * @param args 
 	 */
 	public static void main(String[] args) {
-		System.setProperty("spring.config.name", "catalogue-service");
+		System.setProperty(SPRING_CONF_NAME, CATALOGUE_SERVICE);
+		//System.setProperty("spring.application.name", "catalogue-service");
 		SpringApplication.run(ProductCatalogueService.class, args); // Nothing to do with args in this context
 	}
 

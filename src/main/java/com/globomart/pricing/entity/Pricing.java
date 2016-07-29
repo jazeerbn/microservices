@@ -40,7 +40,7 @@ public class Pricing implements Serializable {
 	protected Pricing() {
 	}
 	
-	public Pricing(long productid, long price) {
+	public Pricing(Long productid, Long price) {
 		this.productId = productid;
 		this.price = BigDecimal.valueOf(price);
 	}
