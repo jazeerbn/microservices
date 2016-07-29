@@ -6,13 +6,17 @@ import java.util.List;
 import java.util.logging.Logger;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cloud.client.loadbalancer.LoadBalanced;
+import org.springframework.context.annotation.Bean;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.client.RestTemplate;
 
 import com.globomart.Product;
 import com.globomart.exceptions.ProductNotFoundException;
+import com.globomart.pricing.entity.Pricing;
 import com.globomart.productcatalogue.entity.Catalogue;
 
 /**
@@ -50,6 +54,30 @@ public class CatalogueController {
 		}else{
 			return buildProduct(cat);
 		}
+	}
+	
+	@LoadBalanced
+	@Bean
+	@Autowired
+	RestTemplate restTemplate() {
+		return new RestTemplate();
+	}
+	
+	/*@Autowired
+	@LoadBalanced
+	protected RestTemplate restTemplate;*/
+	
+	/**
+	 * http://localhost:8093/product/price/1
+	 * @param productId
+	 * @return
+	 */
+	@RequestMapping(value="/product/price/{id}", produces="application/json")
+	public Pricing findByID(@PathVariable("id") String productId) {
+
+		LOG.info("findByID() invoked: for pricing service" + productId);
+		return restTemplate().getForObject("http://pricing-service" + "/product/price/{productId}",
+				Pricing.class, productId);
 	}
 	
 	/**
@@ -149,4 +177,8 @@ public class CatalogueController {
 				cat.getManufacturedBy(), 0l);
 		return prod;
 	}
+	
+	/////*****************************************************************************************////////////////
+	
+	
 }

@@ -12,8 +12,10 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 /**
- * Persistent account entity with JPA markup. Accounts are stored in an H2
+ * Pricing entity with JPA which are stored in an inmemory H2
  * relational database.
+ * 
+ * @author jazeer
  * 
  */
 @Entity
@@ -22,10 +24,8 @@ public class Pricing implements Serializable {
 
 	private static final long serialVersionUID = -5898464507015699272L;
 
-	public static Long nextId = 0L;
-
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	protected Long id;
 	
 	@Column(name = "PRODUCT_ID")
@@ -34,17 +34,15 @@ public class Pricing implements Serializable {
 	@Column(name = "PRICE")
 	protected BigDecimal price;
 
-	/*
-	protected static Long getNextId() {
-		synchronized (nextId) {
-			return nextId++;
-		}
-	}*/
-
 	/**
 	 * Default constructor for JPA only.
 	 */
 	protected Pricing() {
+	}
+	
+	public Pricing(long productid, long price) {
+		this.productId = productid;
+		this.price = BigDecimal.valueOf(price);
 	}
 
 	public Pricing(Long productId) {
