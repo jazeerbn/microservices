@@ -11,7 +11,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 /**
- * Persistent account entity with JPA markup. Accounts are stored in an H2
+ * Persistent entity for JPA. Catalogues are stored in an in memory H2
  * relational database.
  * 
  */
@@ -24,7 +24,7 @@ public class Catalogue implements Serializable {
 	public static Long nextId = 0L;
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Long id;
 
 	@Column(name = "NAME")
@@ -39,12 +39,6 @@ public class Catalogue implements Serializable {
 	@Column(name = "MANUFACTUREDBY")
 	protected String manufacturedBy;
 
-	/*public static Long getNextId() {
-		synchronized (nextId) {
-			return nextId++;
-		}
-	}*/
-
 	/**
 	 * Default constructor for JPA only.Hence protected
 	 */
@@ -55,11 +49,11 @@ public class Catalogue implements Serializable {
 		this.name = name;
 	}
 
-	public long getId() {
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(long id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 

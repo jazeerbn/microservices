@@ -16,6 +16,7 @@ public class ServiceLoader {
 	public static final String CATALOGUE = "catalogue";
 	public static final String PRICING = "price";
 	public static final String WEB = "ui";
+	public static final String SERVER_PORT ="server.port";
 	
 	public static void main(String[] args) {
 
@@ -26,7 +27,7 @@ public class ServiceLoader {
 			server = args[0].toLowerCase();
 			break;
 		case 2 :
-			System.setProperty("server.port", args[1]);
+			System.setProperty(SERVER_PORT, args[1]);
 		default:
 			howToUse();
 		}
@@ -40,7 +41,7 @@ public class ServiceLoader {
 		}else{
 			howToUse();
 			try {
-				throw new UnknownServiceException("Invalid server type: " + server);
+				throw new UnknownServiceException("Invalid server :  " + server);
 			} catch (UnknownServiceException e) {
 				e.printStackTrace();
 			}

@@ -5,25 +5,28 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.netflix.eureka.server.EnableEurekaServer;
 
 /**
- * Just enabling Spring boot and Eureka server to discover services
+ * Loading the application using Spring boot and Eureka server (service discovery).
+ * <br>Since this service acts as server, made this as Eureka server.
  * 
  * @author jazeer
  *
  */
-@EnableEurekaServer
+@EnableEurekaServer 
 @SpringBootApplication
 public class ProductCatalogueService {
 
 	/**
 	 * Method will be executing using embedded servlet and run spring boot.
-	 * Server will look for catalogue-service.yml to discover 
-	 * services while setting the env variable.
 	 * 
-	 * @param args
+	 * <p>This method will 
+	 * 	<br>1. Create new instance via spring bean initialization.</br>
+	 * 	<br>2. Run the Spring application, creating and refreshing a new Application context.</br>
+	 * 
+	 * @param args 
 	 */
 	public static void main(String[] args) {
 		System.setProperty("spring.config.name", "catalogue-service");
-		SpringApplication.run(ProductCatalogueService.class, args);
+		SpringApplication.run(ProductCatalogueService.class, args); // Nothing to do with args in this context
 	}
 
 }
